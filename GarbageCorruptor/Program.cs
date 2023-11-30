@@ -17,8 +17,15 @@ namespace GarbageCorruptor
             Console.WriteLine(array.Length); // 1
             Console.WriteLine(array); // System.Void[]
 
+            array = AllocateArrayUninitialized(2, typeof(int).MakeArrayType());
+            Console.WriteLine(array.Length); // 2
+            Console.WriteLine(array); // System.Int[]
+
             ResizeArray(int.MaxValue, array);
             Console.WriteLine(array.Length); // 2147483647
+
+            MakeUnapproachable(str);
+            MakeUnapproachable(array);
 
             GC.Collect(); // Fatal error. Internal CLR error. (0x80131506)
         }
@@ -32,22 +39,38 @@ namespace GarbageCorruptor
                 chptr[i] = str2[i];
         }
 
+        public static unsafe void MakeUnapproachable(object obj)
+        {
+            ((uint*)*((nint*)Unsafe.AsPointer(ref Unsafe.As<RelaxedGrossObject>(obj).Data) - 1))[1] = 4444444;
+        }
+
         public static unsafe dynamic AllocateArray(int length, Type type)
         {
             if (!type.HasElementType)
                 return null!;
 
             byte[] bytes = new byte[Marshal.SizeOf(type.GetElementType()!) * length];
-            ResizeArray(length, bytes);
             *((nint*)Unsafe.AsPointer(ref Unsafe.As<RelaxedGrossObject>(bytes).Data) - 1) = type.TypeHandle.Value;
+            ResizeArray(length, bytes);
 
             return bytes;
         }
 
-        public static unsafe dynamic ResizeArray(int length, Array array)
+        public static unsafe dynamic AllocateArrayUninitialized(int length, Type type)
+        {
+            if (!type.HasElementType)
+                return null!;
+
+            object[] array = new object[0];
+            *((nint*)Unsafe.AsPointer(ref Unsafe.As<RelaxedGrossObject>(array).Data) - 1) = type.TypeHandle.Value;
+            ResizeArray(length, array);
+
+            return array;
+        }
+
+        public static unsafe void ResizeArray(int length, Array array)
         {
             *(int*)Unsafe.AsPointer(ref Unsafe.As<RelaxedGrossObject>(array).Data) = length;
-            return array;
         }
 
         sealed unsafe class RelaxedGrossObject
