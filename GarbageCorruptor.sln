@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34202.233
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarbageCorruptor", "GarbageCorruptor\GarbageCorruptor.csproj", "{968A6D99-C72E-4FEE-A38F-775C09244B77}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{968A6D99-C72E-4FEE-A38F-775C09244B77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{968A6D99-C72E-4FEE-A38F-775C09244B77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{968A6D99-C72E-4FEE-A38F-775C09244B77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{968A6D99-C72E-4FEE-A38F-775C09244B77}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BD5CEB96-88D5-48B7-A462-F2A6F516D5DD}
+	EndGlobalSection
+EndGlobal
